@@ -97,7 +97,7 @@ namespace dcsv {
 		std::string temp;
 		bool isInQuote = false;
 		for (int i = 0; i<line.size(); i++) {
-			if (line[i] == '\"') {
+			if (line[i] == '\"' || line[i] == '\'') {
 				isInQuote = !isInQuote;
 			} else if (line[i] == '\\') {
 				if (i + 1 < line.size()) {
@@ -244,6 +244,16 @@ namespace dcsv {
 	std::string Reader::toString() {
 		readAll();
 		std::string csvStr;
+		if (isHeader) {
+			for (int i=0; i<headers.size(); i++) {
+				if (i) {
+					csvStr.push_back('|');
+				}
+				csvStr += headers[i];
+			}
+			csvStr.push_back('\n');
+		}
+
 		for (int i=0; i<data.size(); i++) {
 			for (int j=0; j<data[i].size(); j++) {
 				if (j) {
