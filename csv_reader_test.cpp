@@ -18,12 +18,9 @@ void printVector(std::vector<T> v) {
 
 template<typename T>
 void printVector2d(std::vector<T> v) {
-	std::cout << "===>>S<<===" << std::endl;
 	for (int i=0; i<v.size(); i++) {
 		printVector(v[i]);
 	}
-
-	std::cout << "===>>E<<===" << std::endl;
 
 	std::cout << std::endl;
 }
@@ -31,18 +28,48 @@ void printVector2d(std::vector<T> v) {
 
 int main()
 {
-	dcsv::Reader csvReader("b.csv", ',', true);
+	std::string csv_file = "b.csv";
+	char delimeter = ',';
+	bool isHeader = true;
+
+	Log("");
+	Log("dcsv::Reader");
+	Log("csv_file: " << csv_file << " delimeter: '" << delimeter << "' isHeader: " << isHeader);
+	Log("");
+
+	dcsv::Reader csvReader(csv_file, delimeter, isHeader);
 	csvReader.readAll();
 
+	Log("Reader::toString()")
 	Log(csvReader.toString());
-	printVector2d(csvReader.getAsArray<int>());
-	// printVector(csvReader.getAsArray<double>());
-	// printVector(csvReader.getAsArray<std::string>());
 
+	Log("Reader::getAsArray<int>()");
+	printVector2d(csvReader.getAsArray<int>());
+
+	Log("Reader::getAsArray<double>()");
+	printVector2d(csvReader.getAsArray<double>());
+	
+	Log("Reader::getAsArray<std::string>()");
+	printVector2d(csvReader.getAsArray<std::string>());
+
+	Log("Reader::getAsArray<long>()");
+	printVector2d(csvReader.getAsArray<long>());
+	
+	Log("Reader::getHeaders()");
 	printVector(csvReader.getHeaders());
+	Log("")
+
+	Log("Reader::getDataByRowIndex<int>(1)");
 	printVector(csvReader.getDataByRowIndex<int>(1));
+	Log("")
+
+	Log("Reader::getDataByColumnIndex<int>(1)");
 	printVector(csvReader.getDataByColumnIndex<int>(1));
+	Log("")
+
+	Log("Reader::getDataByColumnName<int>(\"c\")");
 	printVector(csvReader.getDataByColumnName<int>("c"));
+	Log("")
 
 	// auto data = csvReader.getAsArray();
 	// for (int i=0; i<data.size(); i++) {
