@@ -1,8 +1,8 @@
 CXX=g++
 CXXFLAGS=-g -std=c++11 -Wall -pedantic
-BIN=csv_reader
+BIN=csv_reader_test
 
-SRC=csv_reader.cpp
+SRC=csv_reader_test.cpp
 OBJ=$(SRC:%.cpp=%.o)
 
 all: $(OBJ)
@@ -17,4 +17,4 @@ clean:
 
 
 test:
-	./csv_reader
+	./csv_reader_test
